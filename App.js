@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from "./screens/HomeScreen";
 import StartGameScreen from "./screens/number-guess-screen/StartGameScreen";
+import SteamLibraryScreen from "./screens/steam-library-screen/SteamLibraryScreen";
+import GameDetail from "./components/steam-library/GameDetail";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -22,6 +24,8 @@ export default function App() {
           />
           <Stack.Screen name="Datos del curso" component={ProfileScreen} />
           <Stack.Screen name='Adivina el número' component ={StartGameScreen} />
+          <Stack.Screen name='Librería de Steam' component={SteamLibraryScreen} />
+          <Stack.Screen name='Juego Steam' component={GameDetail}/>
         </Stack.Navigator>
       </NavigationContainer>
   );

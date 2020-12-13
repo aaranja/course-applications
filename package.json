@@ -23,7 +23,9 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
-    "@react-navigation/native": "^5.8.10"
+    "@react-navigation/native": "^5.8.10",
+    "axios": "^0.21.0",
+    "react-native-htmlview": "^0.16.0"
   },
   "private": true
 }

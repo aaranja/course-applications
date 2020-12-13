@@ -2,8 +2,6 @@ import React, {useState, Component, Fragment } from "react";
 import {
     View,
     Text,
-    StyleSheet,
-    TextInput,
     Button,
     TouchableWithoutFeedback,
     Keyboard,
@@ -12,7 +10,6 @@ import {
 import Card from "../../components/number-guess/Card";
 import Input from "../../components/number-guess/Input";
 import * as style from "../../styles/StartGameStyles";
-
 
 export default class StartGameScreen extends Component{
     constructor(props) {

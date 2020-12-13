@@ -15,6 +15,10 @@ export default class HomeScreen extends Component {
                     title="Jugar a adivina el número!"
                     onPress={()=> this.props.navigation.navigate('Adivina el número')}
                 />
+                <Button
+                    title="Ver librería de Steam"
+                    onPress={()=> this.props.navigation.navigate('Librería de Steam')}
+                />
             </View>
             )
     }
