@@ -10,8 +10,13 @@ import {
 import axios from "axios";
 import HTMLView from "react-native-htmlview";
 import * as style from "../../styles/SteamLibraryStyle";
+import GameImage from "./GameImage";
 
 export default class GameDetail extends Component{
+
+    abortController = new AbortController();
+    CancelToken = axios.CancelToken;
+    source = this.CancelToken.source();
 
     constructor(props) {
         super(props);
@@ -19,52 +24,61 @@ export default class GameDetail extends Component{
             loading: true,
             game_data: null,
         }
-        const url = "https://store.steampowered.com/api/appdetails?appids=" + this.props.route.params.appid;
-        this.cancelablePromise =  this.setCancelable(axios.get(url));
     }
 
+    fetchData = async (id) => {
+        const url = "https://store.steampowered.com/api/appdetails?appids=" + id;
+        try{
+            let result = await axios.get(url, {
+                cancelToken: this.source.token
+            });
+            return result.data;
+        } catch (error){
+            if(axios.isCancel(error)){
+                console.log("petición cancelada", error.message);
+                throw new Error("Cancelled");
+            }
+        }
+    };
+
     componentDidMount() {
-        this.mounted = true;
         this.props.navigation.setOptions({
-            title: this.props.route.params.name
-        });
-        this.cancelablePromise.promise().then(response => {
-           if(this.mounted){
-               this.setState({
-                   game_data: response.data[this.props.route.params.appid].data,
-                   loading: false,
-               })
-           }
-       });
+            title: this.props.route.params.name,
+            headerStyle: {
+                backgroundColor: '#171a21',
+            },
+            headerTintColor: '#e8e8e8',
+            headerTitleStyle: {
+                fontWeight: 'bold',
+            },
+        })
+
+        this.fetchData(this.props.route.params.appid).then(response =>{
+                this.setState({
+                    loading: false,
+                    game_data:response[this.props.route.params.appid].data,
+                })
+        }
+        ).catch(err =>{
+                console.log("Petición cancelada");
+            });
     }
 
     componentWillUnmount() {
-        this.mounted = false;
-        this.cancelablePromise.cancel();
+        this.source.cancel("Operación cancelada por el usuario");
     }
 
-    setCancelable = (fn) =>{
-        let hasCanceled = false;
-        return{
-            promise: (val) => new Promise((resolve, reject) => {
-                if (this.mounted) {
-                    resolve(fn);
-                } else {
-                    fn = null;
-                }
-            }),
-            cancel() {
-                hasCanceled = true;
-            }
-        }
-    }
-
+    /* Renderizar ciertos nodos con propiedades especiales */
     renderNode = (node, index, siblings, parent, defaultRenderer) =>{
         if (node.name === 'h2' || node.name === 'h1') {
             const a = node.attribs;
             var text = node.children[0].data;
-            //console.log(text);
-            return(<Text key={index} style={{fontWeight:"bold", textAlign:"center", marginLeft: 10, marginRight: 10}}>{"\n\n"}{text}{"\n"}</Text>);
+            return(<Text key={index} style={{fontWeight:"bold", textAlign:"center", marginLeft: 10, marginRight: 10, color:"#e8e8e8"}}>{"\n\n"}{text}{"\n"}</Text>);
+        } else {
+            if (node.name === 'img'){
+                const a = node.attribs;
+                return <GameImage style={style.game_style.thumbnail} key={index} source = {a.src}/>
+            }
         }
     }
 
@@ -74,7 +88,6 @@ export default class GameDetail extends Component{
 
         if(!this.state.loading){
             img_url = this.state.game_data.header_image;
-            //console.log(this.state.game_data);
 
             if(this.state.game_data.detailed_description === undefined){
                 description = `<div> ${this.state.game_data.short_description}</div>`;
@@ -84,29 +97,21 @@ export default class GameDetail extends Component{
         }
 
         return (
-            <View>
+            <View style={{backgroundColor: '#1b364a', flex:1, paddingBottom:'5%'}}>
                 {!this.state.loading ?
                     <SafeAreaView>
                         <ScrollView>
                             <Fragment>
-
-                                <Image
-                                    style={style.game_style.thumbnail}
-                                    source = {{uri:img_url}}
-                                />
-                                <Text>Descripción</Text>
-
-
+                              <Image style={style.game_style.thumbnail}
+                                     source = {{uri:img_url}}/>
+                                <Text style={{paddingTop: 10, paddingLeft: 5, fontWeight: 'bold', color: '#e8e8e8'}}>Descripción</Text>
                                 <HTMLView
                                     value={description}
                                     stylesheet={style.html_styles}
                                     renderNode={this.renderNode}
                                 />
-
-
                             </Fragment>
                         </ScrollView>
-
                     </SafeAreaView>
                     :
                     <Text>Cargando</Text>}
