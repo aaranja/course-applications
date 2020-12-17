@@ -7,12 +7,9 @@ import {
     Image,
     TouchableHighlight
 } from "react-native";
-import GameDetail from "../../components/steam-library/GameDetail";
 import {steam_games} from "../../const/steam-game-list";
 import * as home_s from "../../styles/HomeScreenStyle";
 import axios from "axios";
-import GameImage from "../../components/steam-library/GameImage";
-
 
 export default class SteamLibraryScreen extends Component{
     abortController = new AbortController();

@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -7,6 +6,7 @@ import HomeScreen from "./screens/HomeScreen";
 import StartGameScreen from "./screens/number-guess-screen/StartGameScreen";
 import SteamLibraryScreen from "./screens/steam-library-screen/SteamLibraryScreen";
 import GameDetail from "./components/steam-library/GameDetail";
+import CourseDataScreen from "./screens/course-data-screen/CourseDataScreen";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -22,7 +22,7 @@ export default function App() {
               component={HomeScreen}
               options={{ title: 'Bienvenido' }}
           />
-          <Stack.Screen name="Datos del curso" component={ProfileScreen} />
+          <Stack.Screen name="Datos del curso" component={CourseDataScreen} />
           <Stack.Screen name='Adivina el número' component ={StartGameScreen} />
           <Stack.Screen name='Librería de Steam' component={SteamLibraryScreen} />
           <Stack.Screen name='Juego Steam' component={GameDetail}/>

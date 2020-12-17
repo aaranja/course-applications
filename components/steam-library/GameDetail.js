@@ -83,11 +83,13 @@ export default class GameDetail extends Component{
     }
 
     render(){
-        let img_url;
+        let img_url = null;
         let description;
 
-        if(!this.state.loading){
-            img_url = this.state.game_data.header_image;
+        if(!this.state.loading && this.state.game_data!== undefined){
+            if(this.state.game_data.header_image!== undefined){
+                img_url = this.state.game_data.header_image;
+            }
 
             if(this.state.game_data.detailed_description === undefined){
                 description = `<div> ${this.state.game_data.short_description}</div>`;
@@ -102,8 +104,8 @@ export default class GameDetail extends Component{
                     <SafeAreaView>
                         <ScrollView>
                             <Fragment>
-                              <Image style={style.game_style.thumbnail}
-                                     source = {{uri:img_url}}/>
+                                {img_url!== null ? <Image style={style.game_style.thumbnail}
+                                                               source = {{uri:img_url}}/> : null }
                                 <Text style={{paddingTop: 10, paddingLeft: 5, fontWeight: 'bold', color: '#e8e8e8'}}>Descripción</Text>
                                 <HTMLView
                                     value={description}

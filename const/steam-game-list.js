@@ -16,10 +16,7 @@ export const steam_games = [
     {"appid":375310,"name":"Mighty Switch Force! Hose It Down!"},
     {"appid":375320,"name":"Colortone"},{"appid":375330,"name":"Butsbal"},
     {"appid":375340,"name":"Omni"},
-    {"appid":375380,"name":"PAYDAY 2: Humble Mask Pack 3"},
-    {"appid":375381,"name":"PAYDAY 2: Humble Mask Pack 4"},
-    {"appid":375382,"name":"PAYDAY 2: The Jack Mask Pack"},
-    {"appid":375383,"name":"PAYDAY 2: The Queen Mask Pack"},
-    {"appid":375384,"name":"PAYDAY 2: The King Mask Pack"},
-    {"appid":375385,"name":"PAYDAY 2: The Joker Mask Pack"}
+    {"appid":275830,"name":"7 Wonders: Magical Mystery Tour"},
+    {"appid":275850,"name":"No Man's Sky"},
+    {"appid":276020,"name":"Ascend: Hand of Kul TEST"}
 ]
