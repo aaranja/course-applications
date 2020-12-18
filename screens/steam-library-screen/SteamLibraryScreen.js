@@ -4,7 +4,6 @@ import {
     StyleSheet,
     FlatList,
     Text,
-    Image,
     TouchableHighlight
 } from "react-native";
 import {steam_games} from "../../const/steam-game-list";
@@ -16,9 +15,6 @@ export default class SteamLibraryScreen extends Component{
     CancelToken = axios.CancelToken;
     source = this.CancelToken.source();
 
-    constructor(props) {
-        super(props);
-    }
     componentDidMount() {
         this.props.navigation.setOptions({
             headerStyle: {
@@ -31,9 +27,7 @@ export default class SteamLibraryScreen extends Component{
         })
     }
 
-    componentWillUnmount() {
-        this.source.cancel("Cancelado");
-    }
+    componentWillUnmount() { this.source.cancel("Cancelado"); }
 
     setGame = (id, name) => {
         this.props.navigation.navigate(
@@ -78,3 +72,4 @@ export default class SteamLibraryScreen extends Component{
         </View>
     }
 }
+

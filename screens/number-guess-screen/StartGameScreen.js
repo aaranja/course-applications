@@ -1,4 +1,4 @@
-import React, {useState, Component, Fragment } from "react";
+import React, {Component, Fragment } from "react";
 import {
     View,
     Text,
@@ -22,21 +22,11 @@ export default class StartGameScreen extends Component{
             chosenNumber: 0,     /* Número generado */
         }
     }
-
     /* Calcular un nuevo número para adivinar */
-    newGameNumber = () => {
-        return this.setState({
-               chosenNumber: Math.floor(Math.random() * (99 - 1) + 1),
-           })
-    }
-
+    newGameNumber = () => { return this.setState({
+        chosenNumber: Math.floor(Math.random() * (99 - 1) + 1), }) }
     /* Resetear valor introducido */
-    resetInputHandler = () => {
-        return this.setState({
-            enteredValue: "",
-        })
-    };
-
+    resetInputHandler = () => { return this.setState({ enteredValue: "", }) };
     /* Resetear el juego */
     resetGame = () => {
         Keyboard.dismiss();
@@ -48,14 +38,9 @@ export default class StartGameScreen extends Component{
             chosenNumber: 0,     /* Número generado */
         });
     }
-
     /* Consigue el texto de entrada y reemplaza por vacio lo que no es número */
-    numberInputHandler = (inputText) => {
-        return this.setState({
-            enteredValue: inputText.replace(/[^0-9]/g, ""),
-        })
-    };
-
+    numberInputHandler = (inputText) => { return this.setState({
+        enteredValue: inputText.replace(/[^0-9]/g, ""), }) };
     /* Verificación de entrada al presionar el botón del input */
     confirmInputHandler = () =>{
         Keyboard.dismiss();                                 /* Ocultar teclado */
@@ -82,60 +67,39 @@ export default class StartGameScreen extends Component{
     render(){
         let attempsOutput;
         let confirmedOutput;
-        var distancia = "";
+        let distancia = "";
         let win = false;
-
         /* Si se confirma la entrada, se calcula la adivinanza */
         if (this.state.confirmed) {
             confirmedOutput = <Text>Número elegido: {this.state.selectedNumber}</Text>;
             if (
                 this.state.selectedNumber <= this.state.chosenNumber + 10 &&
                 this.state.selectedNumber >= this.state.chosenNumber - 10
-            ) {
-                distancia = "cerca";
-            } else {
-                distancia = "lejos";
-            }
-            attempsOutput = (
-                <Text>
-                    Estás {distancia}, te quedan {this.state.try} intentos.
-                </Text>
-            );
-        } else {
-            attempsOutput = <Text>Te quedan {this.state.try} intentos.</Text>;
-        }
-
+            ) { distancia = "cerca"; } else {distancia = "lejos";}
+            attempsOutput = ( <Text> Estás {distancia}, te quedan {this.state.try} intentos. </Text> );
+        } else { attempsOutput = <Text>Te quedan {this.state.try} intentos.</Text>; }
         /* Si el número es adivinado, win = true */
         if(this.state.selectedNumber === this.state.chosenNumber){
             win = true;
         }
-
         return (
-
-            <TouchableWithoutFeedback
-                onPress={() => {
-                    Keyboard.dismiss();
-                }}
-            >
+            <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss();}}>
                 <View style={style.start_game.screen}>
                     <Card style={style.start_game.card}>
                         {win ? (
                             <Fragment>
-                                <Text styel={style.start_game.title}>{this.state.selectedNumber !== null ? this.state.selectedNumber : "no"}</Text>
+                                <Text styel={style.start_game.title}>{this.state.selectedNumber !== null ?
+                                    this.state.selectedNumber : "no"}</Text>
                                 <Text style={style.start_game.title}>Haz ganado!!</Text>
                                 <Text style={style.start_game.subtitle}>
                                     Con solo {this.state.try} intentos restantes!
                                 </Text>
                                 <Text style={style.start_game.title}>{this.state.selectedNumber}</Text>
                                 <View style={style.start_game.buttonResetGame}>
-                                    <Button
-                                        title={"Volver a jugar! :)"}
-                                        onPress={this.resetGame}
-                                    />
+                                    <Button title={"Volver a jugar! :)"} onPress={this.resetGame} />
                                 </View>
                             </Fragment>
-                        ) : (
-                            <Fragment>
+                        ) : ( <Fragment>
                                 {this.state.try >= 1 ? (
                                     <Fragment>
                                         <Text style={style.start_game.title}>
@@ -151,28 +115,15 @@ export default class StartGameScreen extends Component{
                                             keyboardType={"number-pad"}
                                         />
                                         <View style={style.start_game.buttonContainer}>
-                                            <Button
-                                                title={"Reiniciar"}
-                                                onPress={this.resetGame}
-                                            />
-                                            <Button
-                                                title={"Confirmar"}
-                                                onPress={this.confirmInputHandler}
-                                            />
+                                            <Button title={"Reiniciar"} onPress={this.resetGame} />
+                                            <Button title={"Confirmar"} onPress={this.confirmInputHandler} />
                                         </View>
                                     </Fragment>
-                                ) : (
-                                    <Fragment>
-                                        <Text style={style.start_game.title}>
-                                            Haz perdido :c
+                                ) : ( <Fragment>
+                                        <Text style={style.start_game.title}>Haz perdido :c</Text>
+                                        <Text style={style.start_game.title}>El número era {this.state.chosenNumber}
                                         </Text>
-                                        <Text style={style.start_game.title}>
-                                            El número era {this.state.chosenNumber}
-                                        </Text>
-                                        <Button
-                                            title={"Jugar de nuevo"}
-                                            onPress={this.resetGame}
-                                        />
+                                        <Button title={"Jugar de nuevo"} onPress={this.resetGame}/>
                                     </Fragment>
                                 )}
                             </Fragment>
@@ -181,9 +132,7 @@ export default class StartGameScreen extends Component{
                     {this.state.selectedNumber === this.state.chosenNumber ? null : (
                         <Fragment>
                             {this.state.confirmed ? (
-                                <Card style={style.start_game.cardChosen}>
-                                    {confirmedOutput}
-                                </Card>
+                                <Card style={style.start_game.cardChosen}>{confirmedOutput}</Card>
                             ) : null}
                             <Card style={style.start_game.cardChosen}>{attempsOutput}</Card>
                         </Fragment>
@@ -191,8 +140,5 @@ export default class StartGameScreen extends Component{
                 </View>
             </TouchableWithoutFeedback>
         );
-
-
     }
-
 }
