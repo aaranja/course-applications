@@ -7,20 +7,20 @@ import StartGameScreen from "./screens/number-guess-screen/StartGameScreen";
 import SteamLibraryScreen from "./screens/steam-library-screen/SteamLibraryScreen";
 import GameDetailScreen from "./screens/steam-library-screen/GameDetailScreen";
 import CourseDataScreen from "./screens/course-data-screen/CourseDataScreen";
+import * as hs from "./styles/HeaderStyle";
 
 export default function App() {
   const Stack = createStackNavigator();
-    const ProfileScreen = ({ navigation, route }) => {
-        return <Text>Alumno: {route.params.name}</Text>;
-    };
-
-    return (
+     return (
       <NavigationContainer style={styles.container}>
         <Stack.Navigator>
           <Stack.Screen
               name="Home"
               component={HomeScreen}
-              options={{ title: 'Bienvenido' }}
+              options={{
+                title: 'Bienvenido',
+                options: hs.styles
+              }}
           />
           <Stack.Screen name="Datos del curso" component={CourseDataScreen} />
           <Stack.Screen name='Adivina el número' component ={StartGameScreen} />

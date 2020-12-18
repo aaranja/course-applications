@@ -1,8 +1,13 @@
 import React, {Component } from "react";
 import {Text, View, Image} from "react-native";
 import * as cds from "../../styles/CourseDataStyle";
+import * as hs from "../../styles/HeaderStyle";
 
 export default class CourseDataScreen extends Component {
+    componentDidMount() {
+        this.props.navigation.setOptions(hs.styles);
+    }
+
     render(){
         return (<View style={cds.styles.container}>
                 <Image style={cds.styles.img}

@@ -10,6 +10,8 @@ import {
 import Card from "../../components/number-guess/Card";
 import Input from "../../components/number-guess/Input";
 import * as style from "../../styles/StartGameStyles";
+import * as hs from "../../styles/HeaderStyle";
+
 
 export default class StartGameScreen extends Component{
     constructor(props) {
@@ -22,6 +24,11 @@ export default class StartGameScreen extends Component{
             chosenNumber: 0,     /* Número generado */
         }
     }
+
+    componentDidMount() {
+        this.props.navigation.setOptions(hs.styles);
+    }
+
     /* Calcular un nuevo número para adivinar */
     newGameNumber = () => { return this.setState({
         chosenNumber: Math.floor(Math.random() * (99 - 1) + 1), }) }

@@ -54,5 +54,4 @@ export const style = StyleSheet.create({
     justifyEnd: {
         justifyContent:'flex-end'
     },
-
 });

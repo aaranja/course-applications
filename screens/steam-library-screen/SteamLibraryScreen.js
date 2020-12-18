@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import {steam_games} from "../../const/steam-game-list";
 import * as home_s from "../../styles/HomeScreenStyle";
+import * as hs from "../../styles/HeaderStyle";
 import axios from "axios";
 
 export default class SteamLibraryScreen extends Component{
@@ -16,15 +17,7 @@ export default class SteamLibraryScreen extends Component{
     source = this.CancelToken.source();
 
     componentDidMount() {
-        this.props.navigation.setOptions({
-            headerStyle: {
-                backgroundColor: '#171a21',
-            },
-            headerTintColor: '#e8e8e8',
-            headerTitleStyle: {
-                fontWeight: 'bold',
-            },
-        })
+        this.props.navigation.setOptions(hs.styles);
     }
 
     componentWillUnmount() { this.source.cancel("Cancelado"); }
@@ -54,14 +47,6 @@ export default class SteamLibraryScreen extends Component{
     }
 
     render(){
-        const styles = StyleSheet.create({
-            container: {
-                flex: 1,
-                backgroundColor: '#fff',
-                alignItems: 'center',
-                justifyContent: 'center',
-            },
-        });
         return <View style={{backgroundColor: '#2a465d'}}>
             <FlatList
                 style={{paddingLeft:'2%', paddingRight:'2%'}}

@@ -1,8 +1,13 @@
 import React, {Component} from "react";
 import {Text, View, FlatList, TouchableHighlight} from 'react-native';
 import * as home_s from "../styles/HomeScreenStyle";
+import * as hs from "../styles/HeaderStyle";
 
 export default class HomeScreen extends Component {
+
+    componentDidMount() {
+        this.props.navigation.setOptions(hs.styles);
+    }
     /* Función que renderiza cada fila de la pantalla principal
     * consu respectivo navigator */
     renderRow(data) {
